@@ -1,0 +1,58 @@
+package com.example.house_hunt;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class HouseDetailActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_house_detail);
+
+        // 1. Find views with safe null checks
+        ImageView ivHouseImage = findViewById(R.id.ivHouseImage);
+        TextView tvHouseTitle = findViewById(R.id.tvHouseTitle);
+        TextView tvHousePrice = findViewById(R.id.tvHousePrice);
+        TextView tvHouseLocation = findViewById(R.id.tvHouseLocation);
+        TextView tvHouseAmenities = findViewById(R.id.tvHouseAmenities);
+        Button btnInquire = findViewById(R.id.btnInquire);
+        Button btnFavorite = findViewById(R.id.btnFavorite);
+
+        // 2. Get data sent from MainActivity via Intent
+        Intent incomingIntent = getIntent();
+        String title = incomingIntent != null ? incomingIntent.getStringExtra("title") : null;
+        String price = incomingIntent != null ? incomingIntent.getStringExtra("price") : null;
+        String location = incomingIntent != null ? incomingIntent.getStringExtra("location") : null;
+        String amenities = incomingIntent != null ? incomingIntent.getStringExtra("amenities") : null;
+        int imageResId = incomingIntent != null ? incomingIntent.getIntExtra("image", R.drawable.house1) : R.drawable.house1;
+
+        // 3. Set data to views safely
+        if (tvHouseTitle != null && title != null) tvHouseTitle.setText(title);
+        if (tvHousePrice != null && price != null) tvHousePrice.setText(price);
+        if (tvHouseLocation != null && location != null) tvHouseLocation.setText(location);
+        if (tvHouseAmenities != null && amenities != null) tvHouseAmenities.setText(amenities);
+        if (ivHouseImage != null) ivHouseImage.setImageResource(imageResId);
+
+        // 4. Inquire button action
+        if (btnInquire != null) {
+            btnInquire.setOnClickListener(v -> {
+                Intent intent = new Intent(HouseDetailActivity.this, BookingActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        // 5. Wishlist button action
+        if (btnFavorite != null) {
+            btnFavorite.setOnClickListener(v -> {
+                Toast.makeText(HouseDetailActivity.this, "Added to your Wishlist!", Toast.LENGTH_SHORT).show();
+            });
+        }
+    }
+}
