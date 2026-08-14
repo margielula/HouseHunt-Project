@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Schedule a House Tour"
+        android:textColor="#2E7D32"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Fill in your details to book a physical or virtual visit with our agent."
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etFullName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:hint="Full Name"
+        android:paddingHorizontal="12dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:hint="Phone Number (e.g. 0712345678)"
+        android:inputType="phone"
+        android:paddingHorizontal="12dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:hint="Preferred Date (DD/MM/YYYY)"
+        android:paddingHorizontal="12dp"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnConfirmBooking"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#2E7D32"
+        android:text="Confirm Booking"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>
