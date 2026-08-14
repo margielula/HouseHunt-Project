@@ -1,0 +1,31 @@
+package com.example.house_hunt;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ManageHousesActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_manage_houses);
+
+        ListView listView = findViewById(R.id.listViewManageHouses);
+
+        String[] houses = {
+                "Luxury Apartment - KSh 150,000 / mo",
+                "Garden Estate Unit - KSh 85,000 / mo"
+        };
+
+        if (listView != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    houses
+            );
+            listView.setAdapter(adapter);
+        }
+    }
+}
