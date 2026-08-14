@@ -1,0 +1,57 @@
+package com.example.house_hunt;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class LoginActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        EditText etEmail = findViewById(R.id.etEmail);
+        EditText etPassword = findViewById(R.id.etPassword);
+        Button btnLoginSubmit = findViewById(R.id.btnLoginSubmit);
+        TextView tvRegister = findViewById(R.id.tvRegister);
+
+        if (btnLoginSubmit != null) {
+            btnLoginSubmit.setOnClickListener(v -> {
+                String email = etEmail != null ? etEmail.getText().toString().trim() : "";
+                String password = etPassword != null ? etPassword.getText().toString().trim() : "";
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Check for Admin Credentials
+                if (email.equals("admin@gmail.com") && password.equals("7890")) {
+                    Toast.makeText(LoginActivity.this, "Welcome Admin!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, AdminDashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Regular User Login
+                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+
+        if (tvRegister != null) {
+            tvRegister.setOnClickListener(v -> {
+                Toast.makeText(LoginActivity.this, "Registration screen coming soon!", Toast.LENGTH_SHORT).show();
+            });
+        }
+    }
+}
