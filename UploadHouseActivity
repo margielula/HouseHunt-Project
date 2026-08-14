@@ -1,0 +1,90 @@
+package com.example.house_hunt;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class UploadHouseActivity extends AppCompatActivity {
+
+    private EditText etHouseLocation, etHousePrice, etHouseAmenities;
+    private Spinner spinnerBedrooms;
+    private ImageView imgHousePreview;
+    private Uri imageUri;
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_upload_house);
+
+        // 1. Initialize Activity Result Launcher safely inside onCreate()
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        imageUri = result.getData().getData();
+                        if (imgHousePreview != null && imageUri != null) {
+                            imgHousePreview.setImageURI(imageUri);
+                        }
+                    }
+                }
+        );
+
+        // 2. Bind Views
+        etHouseLocation = findViewById(R.id.etHouseLocation);
+        etHousePrice = findViewById(R.id.etHousePrice);
+        etHouseAmenities = findViewById(R.id.etHouseAmenities);
+        spinnerBedrooms = findViewById(R.id.spinnerBedrooms);
+        imgHousePreview = findViewById(R.id.imgHousePreview);
+        Button btnSelectImage = findViewById(R.id.btnSelectImage);
+        Button btnSubmitHouse = findViewById(R.id.btnSubmitHouse);
+
+        // 3. Populate Bedroom Spinner Options safely
+        String[] bedroomOptions = {"1 Bedroom", "2 Bedrooms", "3 Bedrooms"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bedroomOptions);
+        if (spinnerBedrooms != null) {
+            spinnerBedrooms.setAdapter(adapter);
+        }
+
+        // 4. Open Gallery / Device storage
+        if (btnSelectImage != null) {
+            btnSelectImage.setOnClickListener(v -> {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                imagePickerLauncher.launch(intent);
+            });
+        }
+
+        // 5. Publish house button action
+        if (btnSubmitHouse != null) {
+            btnSubmitHouse.setOnClickListener(v -> {
+                String location = (etHouseLocation != null && etHouseLocation.getText() != null) ? etHouseLocation.getText().toString().trim() : "";
+                String price = (etHousePrice != null && etHousePrice.getText() != null) ? etHousePrice.getText().toString().trim() : "";
+                String amenities = (etHouseAmenities != null && etHouseAmenities.getText() != null) ? etHouseAmenities.getText().toString().trim() : "";
+
+                String bedroomType = "";
+                if (spinnerBedrooms != null && spinnerBedrooms.getSelectedItem() != null) {
+                    bedroomType = spinnerBedrooms.getSelectedItem().toString();
+                }
+
+                if (location.isEmpty() || price.isEmpty() || amenities.isEmpty() || imageUri == null) {
+                    Toast.makeText(UploadHouseActivity.this, "Please fill all fields and select an image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(UploadHouseActivity.this, "House successfully uploaded for " + location + " (" + bedroomType + ")!", Toast.LENGTH_LONG).show();
+                finish();
+            });
+        }
+    }
+}
