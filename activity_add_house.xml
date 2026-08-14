@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload New House Listing"
+            android:textColor="#2E7D32"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:hint="House Title (e.g. Modern Apartment)"
+            android:paddingHorizontal="10dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etLocation"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:hint="Location (e.g. Kilimani, Nairobi)"
+            android:paddingHorizontal="10dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etPrice"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:hint="Price (e.g. KSh 45,000 / mo)"
+            android:inputType="text"
+            android:paddingHorizontal="10dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etBedrooms"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:hint="Bedroom Size (e.g. 1, 2, or 3 Bedroom)"
+            android:paddingHorizontal="10dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etImageName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:hint="Image Drawable Name (e.g. house1)"
+            android:paddingHorizontal="10dp"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnSubmitHouse"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#2E7D32"
+            android:text="Publish Listing"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>
