@@ -1,0 +1,50 @@
+package com.example.house_hunt;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ConfirmBookingsActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_confirm_bookings);
+
+        ListView listView = findViewById(R.id.listViewBookings);
+
+        // List of booking requests
+        String[] bookings = {
+                "Client: John Doe - Luxury Apt (Kilimani)",
+                "Client: Jane Smith - Garden Estate (Karen)"
+        };
+
+        if (listView != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    bookings
+            );
+            listView.setAdapter(adapter);
+
+            // Click an item to trigger booking confirmation
+            listView.setOnItemClickListener((parent, view, position, id) -> {
+                String selectedBooking = bookings[position];
+
+                // Show a confirmation popup dialog
+                new AlertDialog.Builder(ConfirmBookingsActivity.this)
+                        .setTitle("Confirm Booking")
+                        .setMessage("Do you want to confirm this booking?\n\n" + selectedBooking)
+                        .setPositiveButton("Yes, Confirm", (dialog, which) -> {
+                            Toast.makeText(ConfirmBookingsActivity.this, "Booking Confirmed Successfully!", Toast.LENGTH_SHORT).show();
+                            // Add your database/backend update logic here later if needed
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+            });
+        }
+    }
+}
